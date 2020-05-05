@@ -3,7 +3,7 @@ import isEqual from 'lodash.isequal';
 export default class FieldController {
   constructor(
     { label, path, type, access, isOrderable, isPrimaryKey, isRequired, adminDoc, ...config },
-    adminMeta,
+    { readViews, preloadViews, getListByKey, adminPath, authStrategy },
     views
   ) {
     this.config = config;
@@ -15,7 +15,11 @@ export default class FieldController {
     this.isPrimaryKey = isPrimaryKey;
     this.isRequired = isRequired;
     this.adminDoc = adminDoc;
-    this.adminMeta = adminMeta;
+    this.readViews = readViews;
+    this.preloadViews = preloadViews;
+    this.getListByKey = getListByKey;
+    this.adminPath = adminPath;
+    this.authStrategy = authStrategy;
     this.views = views;
 
     if ('defaultValue' in config) {
@@ -107,7 +111,7 @@ export default class FieldController {
     if (!Cell) {
       return;
     }
-    this.adminMeta.readViews([Cell]);
+    this.readViews([Cell]);
   };
 
   initFieldView = () => {
@@ -115,7 +119,7 @@ export default class FieldController {
     if (!Field) {
       return;
     }
-    this.adminMeta.readViews([Field]);
+    this.readViews([Field]);
   };
 
   initFilterView = () => {
@@ -123,7 +127,7 @@ export default class FieldController {
     if (!Filter) {
       return;
     }
-    this.adminMeta.readViews([Filter]);
+    this.readViews([Filter]);
   };
 
   getFilterTypes = () => [];
