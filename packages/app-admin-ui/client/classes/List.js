@@ -21,6 +21,7 @@ export default class List {
     this.path = path;
     this.plural = plural;
     this.singular = singular;
+    this.fullpath = `${adminMeta.adminPath}/${path}`;
 
     this.fields = fields.map(fieldConfig => {
       const [Controller] = adminMeta.readViews([views[fieldConfig.path].Controller]);
